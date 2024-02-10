@@ -16,7 +16,7 @@
 
 
 ```
-Latest Version: 2.0.0
+Latest Version: 1.0.0 Beta
 Release date: 10-Feb-2024
 ```
 
