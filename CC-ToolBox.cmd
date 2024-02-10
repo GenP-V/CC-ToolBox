@@ -11,7 +11,7 @@ title CC-ToolBox V%ver%
 cls
 echo:     _________________________________________________________________
 echo:
-echo:                         Welcome CC-ToolBox V%ver%
+echo:                        Welcome to CC-ToolBox V%ver%
 echo:     _________________________________________________________________
 echo:
 echo:         1 - All-in-One Creative Cloud Patcher
