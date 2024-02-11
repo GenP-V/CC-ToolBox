@@ -33,7 +33,7 @@ echo:         [0] Exit
 echo:     ________________________________________________________________________ 
 echo.
 echo:     Enter a menu option in the Keyboard [1,2,3,4,5,6,7,0] :
-choice /C:123456780 /N
+choice /C:12345670 /N
 set "userChoice=%errorlevel%"
 
 if %userChoice%==1 goto DownloadCreativeCloud
