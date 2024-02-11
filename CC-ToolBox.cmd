@@ -13,37 +13,41 @@ title CC-ToolBox V%ver%
 mode 85, 25
 echo:     ________________________________________________________________________
 echo:
-echo:                             Welcome to CC-ToolBox V%ver%
+echo:                               Welcome to CC-ToolBox
 echo:     ________________________________________________________________________ 
 echo:
-echo:         Activation Methods:
+echo:         [1] CreativeCloud ^|  Download               ^|         (Required)
+echo:         ________________________________________________________________
 echo:
-echo:         [1] All-in-One    ^|  Creative Cloud Patcher ^|   (Set and Forget)
-echo:         [2] Acropolis     ^|  Acrobat Patcher        ^|     (Acrobat only)
+echo:         [2] All-in-One    ^|  Creative Cloud Patcher ^|   (Set and Forget)
+echo:         [3] GenP (3.0)    ^|  Adobe App      Patcher ^|         (Download)
+echo:         [4] Acropolis     ^|  Acrobat DC     Patcher ^|       (Standalone)
 echo:         ________________________________________________________________  
 echo:
-echo:         [3] Extras        ^|  Individual Options     ^|   (Advanced Users)
-echo:         [4] Recovery      ^|  Restore Defaults       ^|  (Troubleshooting)
-echo:         [5] Help          ^|  Detailed Guides        ^|           (Reddit)
+echo:         [5] Extras        ^|  Individual Options     ^|   (Advanced Users)
+echo:         [6] Recovery      ^|  Restore Defaults       ^|  (Troubleshooting)
+echo:         [7] Help          ^|  Detailed Guides        ^|           (Reddit)
 echo:         ________________________________________________________________
 echo:
 echo:         [0] Exit
 echo:     ________________________________________________________________________ 
 echo.
-echo:         Enter a menu option in the Keyboard [1,2,3,4,5,0] :
-choice /C:123450 /N
+echo:     Enter a menu option in the Keyboard [1,2,3,4,5,6,7,0] :
+choice /C:123456780 /N
 set "userChoice=%errorlevel%"
 
-if %userChoice%==1 goto FullPatching
-if %userChoice%==2 goto AcropolisPatching
-if %userChoice%==3 goto ExtraSubmenu
-if %userChoice%==4 goto RestoreDefaultsSubmenu
-if %userChoice%==5 goto Help
-if %userChoice%==6 goto EndScript
+if %userChoice%==1 goto DownloadCreativeCloud
+if %userChoice%==2 goto FullPatching
+if %userChoice%==3 goto DownloadGenP
+if %userChoice%==4 goto AcropolisPatching
+if %userChoice%==5 goto ExtraSubmenu
+if %userChoice%==6 goto RestoreDefaultsSubmenu
+if %userChoice%==7 goto Help
+if %userChoice%==8 goto EndScript
 
 :ExtraSubmenu
 cls
-title Extras
+title CC-ToolBox: Extras
 mode 85, 25
 echo:     ________________________________________________________________________
 echo:
@@ -57,7 +61,7 @@ echo:
 echo:         [0] Return to Main Menu
 echo:     ________________________________________________________________________
 echo.
-echo:      Enter a menu option in the Keyboard [1,2,3,0] :
+echo:     Enter a menu option in the Keyboard [1,2,3,0] :
 choice /C:1230 /N
 set "extraChoice=%errorlevel%"
 
@@ -68,7 +72,7 @@ if %extraChoice%==4 goto MainMenu
 
 :RestoreDefaultsSubmenu
 cls
-title Recovery options
+title CC-ToolBox: Recovery options
 mode 85, 25
 echo:     ________________________________________________________________________
 echo:
@@ -82,17 +86,17 @@ echo:
 echo:         [0] Return to Main Menu
 echo:     ________________________________________________________________________
 echo.
-echo:      Enter a menu option in the Keyboard [1,2,3,0] :
+echo:     Enter a menu option in the Keyboard [1,2,3,0] :
 choice /C:1230 /N 
 set "restoreChoice=%errorlevel%"
 
-if %restoreChoice%==1 goto RestoreBackup
+if %restoreChoice%==1 goto CloseAdobeProcesses
 if %restoreChoice%==2 goto ResetHosts
 if %restoreChoice%==3 goto ResetFirewallRules
 if %restoreChoice%==4 goto MainMenu
 
 :FullPatching
-if %userChoice%==1 goto CloseAdobeProcesses
+if %userChoice%==2 goto CloseAdobeProcesses
 
 :CloseAdobeProcesses
 cls
@@ -105,8 +109,10 @@ REM Close all Adobe processes and services
 powershell -Command "Get-Service -DisplayName Adobe* | Stop-Service -Force -Confirm:$false; $Processes = Get-Process * | Where-Object { $_.CompanyName -match 'Adobe' -or $_.Path -match 'Adobe' }; Foreach ($Process in $Processes) { Stop-Process $Process -Force -ErrorAction SilentlyContinue }"
 echo Adobe processes and services closed.
 echo.
-if %userChoice%==1 goto BackupFiles
+if %userChoice%==2 goto BackupFiles
+if %userChoice%==6 goto RestoreBackup
 pause
+if %userChoice%==5 goto ExtraSubmenu
 goto MainMenu
 
 :BackupFiles
@@ -134,8 +140,9 @@ if not exist "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\ADS
     echo Backup already exists.
 )
 echo.
-if %userChoice%==1 goto PatchFiles
+if %userChoice%==2 goto PatchFiles
 pause
+if %userChoice%==5 goto ExtraSubmenu
 goto MainMenu
 
 :PatchFiles
@@ -216,7 +223,7 @@ echo.
 echo Files patched!
 echo.
 del /f /q "%temp%\CreativeCloudPatcher.ps1"
-if %userChoice%==1 goto AddHosts
+if %userChoice%==2 goto AddHosts
 pause
 goto MainMenu
 
@@ -239,8 +246,9 @@ findstr /C:"0.0.0.0 5zgzzv92gn.adobe.io" "%windir%\System32\drivers\etc\hosts" >
 )
 echo Hosts entries added.
 echo.
-if %userChoice%==1 goto OpenCreativeCloud
+if %userChoice%==2 goto OpenCreativeCloud
 pause
+if %userChoice%==5 goto ExtraSubmenu
 goto MainMenu
 
 :RestoreBackup
@@ -280,6 +288,8 @@ if exist "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\ADS\Con
 )
 echo.
 pause
+if %userChoice%==6 goto RestoreDefaultsSubmenu
+
 goto MainMenu
 
 :OpenCreativeCloud
@@ -291,7 +301,7 @@ echo:     ______________________________________________________________________
 echo.
 REM Open Creative Cloud
 start "" "C:\Program Files (x86)\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe"
-if %userChoice%==1 goto MainMenu
+if %userChoice%==2 goto MainMenu
 pause
 goto MainMenu
 
@@ -340,6 +350,7 @@ echo #	::1             localhost >> "%windir%\System32\drivers\etc\hosts"
 echo Original hosts file restored.
 echo.
 pause
+if %userChoice%==6 goto RestoreDefaultsSubmenu
 goto MainMenu
 
 
@@ -355,6 +366,15 @@ netsh advfirewall reset
 echo All firewall rules reset.
 echo.
 pause
+if %userChoice%==6 goto RestoreDefaultsSubmenu
+goto MainMenu
+
+:DownloadCreativeCloud
+start "" https://creativecloud.adobe.com/apps/download/creative-cloud
+goto MainMenu
+
+:DownloadGenP
+start "" https://www.mediafire.com/file/jr0jqeynr4h21f9/Adobe_GenP_3.0.zip/file
 goto MainMenu
 
 :Help
