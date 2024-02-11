@@ -1,5 +1,5 @@
-@set ver=1.0 BETA
 @echo off
+set ver=1.0 BETA
 
 REM Run as admin
 %1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd","/c %~s0 ::","","runas",1)(window.close) && exit
@@ -9,46 +9,97 @@ title CC-ToolBox V%ver%
 
 :MainMenu
 cls
-echo:     _________________________________________________________________
+title CC-ToolBox V%ver%
+mode 85, 25
+echo:     ________________________________________________________________________
 echo:
-echo:                        Welcome to CC-ToolBox V%ver%
-echo:     _________________________________________________________________
+echo:                             Welcome to CC-ToolBox V%ver%
+echo:     ________________________________________________________________________ 
 echo:
-echo:         1 - All-in-One Creative Cloud Patcher
-echo:         2 - Close Adobe processes and services
-echo:         3 - Create backup of default files
-echo:         4 - Add hosts entries
-echo:         5 - Acropolis: Patch Acrobat DC Pro
-echo:         ---------------------------------------------------------
-echo:         6 - Restore backup of default files
-echo:         7 - Reset hosts file
-echo:         8 - Reset all firewall rules
-echo:         0 - Exit
-echo:     _________________________________________________________________
+echo:         Activation Methods:
+echo:
+echo:         [1] All-in-One    ^|  Creative Cloud Patcher ^|   (Set and Forget)
+echo:         [2] Acropolis     ^|  Acrobat Patcher        ^|     (Acrobat only)
+echo:         ________________________________________________________________  
+echo:
+echo:         [3] Extras        ^|  Individual Options     ^|   (Advanced Users)
+echo:         [4] Recovery      ^|  Restore Defaults       ^|  (Troubleshooting)
+echo:         [5] Help          ^|  Detailed Guides        ^|           (Reddit)
+echo:         ________________________________________________________________
+echo:
+echo:         [0] Exit
+echo:     ________________________________________________________________________ 
 echo.
-
-choice /C 123456780 /N /M "Select an option: "
+echo:         Enter a menu option in the Keyboard [1,2,3,4,5,0] :
+choice /C:123450 /N
 set "userChoice=%errorlevel%"
 
 if %userChoice%==1 goto FullPatching
-if %userChoice%==2 goto CloseAdobeProcesses
-if %userChoice%==3 goto BackupFiles
-if %userChoice%==4 goto AddHosts
-if %userChoice%==5 goto AcropolisPatching
-if %userChoice%==6 goto RestoreBackup
-if %userChoice%==7 goto ResetHosts
-if %userChoice%==8 goto ResetFirewallRules
-if %userChoice%==9 goto EndScript
+if %userChoice%==2 goto AcropolisPatching
+if %userChoice%==3 goto ExtraSubmenu
+if %userChoice%==4 goto RestoreDefaultsSubmenu
+if %userChoice%==5 goto Help
+if %userChoice%==6 goto EndScript
+
+:ExtraSubmenu
+cls
+title Extras
+mode 85, 25
+echo:     ________________________________________________________________________
+echo:
+echo:                           Extras and individual options
+echo:     ________________________________________________________________________
+echo:
+echo:         [1] Close Adobe processes and services
+echo:         [2] Create backup of default files
+echo:         [3] Add or update hosts entries
+echo:
+echo:         [0] Return to Main Menu
+echo:     ________________________________________________________________________
+echo.
+echo:      Enter a menu option in the Keyboard [1,2,3,0] :
+choice /C:1230 /N
+set "extraChoice=%errorlevel%"
+
+if %extraChoice%==1 goto CloseAdobeProcesses
+if %extraChoice%==2 goto BackupFiles
+if %extraChoice%==3 goto AddHosts
+if %extraChoice%==4 goto MainMenu
+
+:RestoreDefaultsSubmenu
+cls
+title Recovery options
+mode 85, 25
+echo:     ________________________________________________________________________
+echo:
+echo:                                  Recovery options
+echo:     ________________________________________________________________________
+echo:
+echo:         [1] Restore backup of default files
+echo:         [2] Reset hosts file
+echo:         [3] Reset all firewall rules
+echo:
+echo:         [0] Return to Main Menu
+echo:     ________________________________________________________________________
+echo.
+echo:      Enter a menu option in the Keyboard [1,2,3,0] :
+choice /C:1230 /N 
+set "restoreChoice=%errorlevel%"
+
+if %restoreChoice%==1 goto RestoreBackup
+if %restoreChoice%==2 goto ResetHosts
+if %restoreChoice%==3 goto ResetFirewallRules
+if %restoreChoice%==4 goto MainMenu
 
 :FullPatching
 if %userChoice%==1 goto CloseAdobeProcesses
 
 :CloseAdobeProcesses
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                     Closing Adobe processes and services...
-echo:     _________________________________________________________________
+echo:                       Closing Adobe processes and services...
+echo:     ________________________________________________________________________
 echo.
 REM Close all Adobe processes and services
 powershell -Command "Get-Service -DisplayName Adobe* | Stop-Service -Force -Confirm:$false; $Processes = Get-Process * | Where-Object { $_.CompanyName -match 'Adobe' -or $_.Path -match 'Adobe' }; Foreach ($Process in $Processes) { Stop-Process $Process -Force -ErrorAction SilentlyContinue }"
@@ -60,10 +111,10 @@ goto MainMenu
 
 :BackupFiles
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                     Creating backup of default files...
-echo:     _________________________________________________________________
+echo:                        Creating backup of default files...
+echo:     ________________________________________________________________________
 echo.
 REM Create a backup of default files
 if not exist "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\AppsPanel\AppsPanelBL.dll.bak" (
@@ -89,10 +140,10 @@ goto MainMenu
 
 :PatchFiles
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                             Patching files...
-echo:     _________________________________________________________________
+echo:                              Patching Creative Cloud...
+echo:     ________________________________________________________________________
 echo.
 
 rem Create a powershell script to patch the files
@@ -171,10 +222,10 @@ goto MainMenu
 
 :AddHosts
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                           Adding hosts entries...
-echo:     _________________________________________________________________
+echo:                               Adding hosts entries...
+echo:     ________________________________________________________________________
 echo.
 REM Add hosts entries if they don't already exist
 
@@ -194,10 +245,10 @@ goto MainMenu
 
 :RestoreBackup
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                   Restoring backup of default files...
-echo:     _________________________________________________________________
+echo:                        Restoring backup of default files...
+echo:     ________________________________________________________________________
 echo.
 REM Check if backup exists and restore the original files
 
@@ -233,10 +284,10 @@ goto MainMenu
 
 :OpenCreativeCloud
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                         Launing Creative Cloud...
-echo:     _________________________________________________________________
+echo:                              Launing Creative Cloud...
+echo:     ________________________________________________________________________
 echo.
 REM Open Creative Cloud
 start "" "C:\Program Files (x86)\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe"
@@ -247,20 +298,20 @@ goto MainMenu
 
 :AcropolisPatching
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                            Launing Acropolis...
-echo:     _________________________________________________________________
+echo:                                Launing Acropolis...
+echo:     ________________________________________________________________________
 echo.
 powershell -Command "irm y.gy/acro | iex"
 goto MainMenu
 
 :ResetHosts
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                        Resetting the hosts file...
-echo:     _________________________________________________________________
+echo:                            Resetting the hosts file...
+echo:     ________________________________________________________________________
 echo.
 REM Reset the hosts file to the default content
 echo # Copyright (c) 1993-2009 Microsoft Corp. > "%windir%\System32\drivers\etc\hosts"
@@ -294,16 +345,20 @@ goto MainMenu
 
 :ResetFirewallRules
 cls
-echo:     _________________________________________________________________
+echo:     ________________________________________________________________________
 echo:
-echo:                     Resetting all firewall rules...
-echo:     _________________________________________________________________
+echo:                          Resetting all firewall rules...
+echo:     ________________________________________________________________________
 echo.
 REM Reset all firewall rules to default
 netsh advfirewall reset
 echo All firewall rules reset.
 echo.
 pause
+goto MainMenu
+
+:Help
+start "" https://www.reddit.com/r/GenP/comments/qpcnob/friendly_reminder_to_new_folks/
 goto MainMenu
 
 :EndScript
