@@ -4,13 +4,14 @@ set ver=1.0 BETA
 REM Run as admin
 %1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd","/c %~s0 ::","","runas",1)(window.close) && exit
 cd /d "%~dp0"
+taskkill /IM powershell.exe /F
 
 title CC-ToolBox V%ver%
 
 :MainMenu
 cls
 title CC-ToolBox V%ver%
-mode 85, 25
+mode 82, 24
 echo:     ________________________________________________________________________
 echo:
 echo:                               Welcome to CC-ToolBox
@@ -47,8 +48,7 @@ if %userChoice%==8 goto EndScript
 
 :ExtraSubmenu
 cls
-title CC-ToolBox: Extras
-mode 85, 25
+title CC-ToolBox - Extras
 echo:     ________________________________________________________________________
 echo:
 echo:                           Extras and individual options
@@ -72,8 +72,7 @@ if %extraChoice%==4 goto MainMenu
 
 :RestoreDefaultsSubmenu
 cls
-title CC-ToolBox: Recovery options
-mode 85, 25
+title CC-ToolBox - Recovery options
 echo:     ________________________________________________________________________
 echo:
 echo:                                  Recovery options
