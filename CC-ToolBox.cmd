@@ -46,6 +46,7 @@ if %userChoice%==6 goto RestoreDefaultsSubmenu
 if %userChoice%==7 goto Help
 if %userChoice%==8 goto EndScript
 
+
 :ExtraSubmenu
 cls
 title CC-ToolBox - Extras
@@ -69,6 +70,7 @@ if %extraChoice%==1 goto CloseAdobeProcesses
 if %extraChoice%==2 goto BackupFiles
 if %extraChoice%==3 goto AddHosts
 if %extraChoice%==4 goto MainMenu
+
 
 :RestoreDefaultsSubmenu
 cls
@@ -94,8 +96,10 @@ if %restoreChoice%==2 goto ResetHosts
 if %restoreChoice%==3 goto ResetFirewallRules
 if %restoreChoice%==4 goto MainMenu
 
+
 :FullPatching
 if %userChoice%==2 goto CloseAdobeProcesses
+
 
 :CloseAdobeProcesses
 cls
@@ -113,6 +117,7 @@ if %userChoice%==6 goto RestoreBackup
 pause
 if %userChoice%==5 goto ExtraSubmenu
 goto MainMenu
+
 
 :BackupFiles
 cls
@@ -143,6 +148,7 @@ if %userChoice%==2 goto PatchFiles
 pause
 if %userChoice%==5 goto ExtraSubmenu
 goto MainMenu
+
 
 :PatchFiles
 cls
@@ -226,6 +232,7 @@ if %userChoice%==2 goto AddHosts
 pause
 goto MainMenu
 
+
 :AddHosts
 cls
 echo:     ________________________________________________________________________
@@ -249,6 +256,7 @@ if %userChoice%==2 goto OpenCreativeCloud
 pause
 if %userChoice%==5 goto ExtraSubmenu
 goto MainMenu
+
 
 :RestoreBackup
 cls
@@ -291,6 +299,7 @@ if %userChoice%==6 goto RestoreDefaultsSubmenu
 
 goto MainMenu
 
+
 :OpenCreativeCloud
 cls
 echo:     ________________________________________________________________________
@@ -314,6 +323,7 @@ echo:     ______________________________________________________________________
 echo.
 powershell -Command "irm y.gy/acro | iex"
 goto MainMenu
+
 
 :ResetHosts
 cls
@@ -368,17 +378,21 @@ pause
 if %userChoice%==6 goto RestoreDefaultsSubmenu
 goto MainMenu
 
+
 :DownloadCreativeCloud
 start "" https://creativecloud.adobe.com/apps/download/creative-cloud
 goto MainMenu
+
 
 :DownloadGenP
 start "" https://www.mediafire.com/file/jr0jqeynr4h21f9/Adobe_GenP_3.0.zip/file
 goto MainMenu
 
+
 :Help
 start "" https://www.reddit.com/r/GenP/comments/qpcnob/friendly_reminder_to_new_folks/
 goto MainMenu
+
 
 :EndScript
 echo Exiting script...
