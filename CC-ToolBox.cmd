@@ -98,8 +98,28 @@ if %restoreChoice%==4 goto MainMenu
 
 
 :FullPatching
+
+REM Check if Creative Cloud is installed
+IF NOT EXIST "C:\Program Files\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe" (
+    REM Creative Cloud is not installed
+    goto CreativeCloudNotInstalled
+) 
 if %userChoice%==2 goto CloseAdobeProcesses
 
+:CreativeCloudNotInstalled
+cls 
+echo:     ________________________________________________________________________
+echo:
+echo:                           Creative Cloud not installed
+echo:     ________________________________________________________________________
+echo.
+echo      Creative Cloud is not installed. Use option [1] in the Main Menu
+echo      to download and then install it.
+echo.
+echo:     Press any key to return to the main menu...
+
+pause >nul
+goto MainMenu
 
 :CloseAdobeProcesses
 cls
@@ -126,6 +146,13 @@ echo:
 echo:                        Creating backup of default files...
 echo:     ________________________________________________________________________
 echo.
+
+REM Check if Creative Cloud is installed
+IF NOT EXIST "C:\Program Files\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe" (
+    REM Creative Cloud is not installed
+    goto CreativeCloudNotInstalled
+) 
+
 REM Create a backup of default files
 if not exist "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\AppsPanel\AppsPanelBL.dll.bak" (
     copy "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\AppsPanel\AppsPanelBL.dll" "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\AppsPanel\AppsPanelBL.dll.bak"
@@ -265,6 +292,13 @@ echo:
 echo:                        Restoring backup of default files...
 echo:     ________________________________________________________________________
 echo.
+
+REM Check if Creative Cloud is installed
+IF NOT EXIST "C:\Program Files\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe" (
+    REM Creative Cloud is not installed
+    goto CreativeCloudNotInstalled
+) 
+
 REM Check if backup exists and restore the original files
 
 :: Check if the backup of AppsPanelBL.dll exists
