@@ -11,30 +11,32 @@ title CC-ToolBox V%ver%
 :MainMenu
 cls
 title CC-ToolBox V%ver%
-mode 82, 24
+mode 82, 25
 echo:     ________________________________________________________________________
 echo:
 echo:                               Welcome to CC-ToolBox
+echo:                          developed by -V, GenP Subreddit
 echo:     ________________________________________________________________________ 
 echo:
 echo:         [1] CreativeCloud ^|  Download               ^|         (Required)
 echo:         ________________________________________________________________
 echo:
-echo:         [2] All-in-One    ^|  Creative Cloud Patcher ^|   (Set and Forget)
+echo:         [2] CC-Patcher    ^|  Creative Cloud Patcher ^|   (Set and Forget)
 echo:         [3] GenP (3.0)    ^|  Adobe App      Patcher ^|         (Download)
 echo:         [4] Acropolis     ^|  Acrobat DC     Patcher ^|       (Standalone)
 echo:         ________________________________________________________________  
 echo:
 echo:         [5] Extras        ^|  Individual Options     ^|   (Advanced Users)
 echo:         [6] Recovery      ^|  Restore Defaults       ^|  (Troubleshooting)
-echo:         [7] Help          ^|  Detailed Guides        ^|           (Reddit)
+echo:         [7] Discord       ^|  Support                ^|   (Discord Invite)
+echo:         [8] Help          ^|  Detailed Guides        ^|           (Reddit)
 echo:         ________________________________________________________________
 echo:
 echo:         [0] Exit
 echo:     ________________________________________________________________________ 
 echo.
-echo:     Enter a menu option in the Keyboard [1,2,3,4,5,6,7,0] :
-choice /C:12345670 /N
+echo:     Enter a menu option in the Keyboard [1,2,3,4,5,6,7,8,0] :
+choice /C:123456780 /N
 set "userChoice=%errorlevel%"
 
 if %userChoice%==1 goto DownloadCreativeCloud
@@ -43,8 +45,9 @@ if %userChoice%==3 goto DownloadGenP
 if %userChoice%==4 goto AcropolisPatching
 if %userChoice%==5 goto ExtraSubmenu
 if %userChoice%==6 goto RestoreDefaultsSubmenu
-if %userChoice%==7 goto Help
-if %userChoice%==8 goto EndScript
+if %userChoice%==7 goto DiscordInvite
+if %userChoice%==8 goto Help
+if %userChoice%==9 goto EndScript
 
 
 :ExtraSubmenu
@@ -58,18 +61,20 @@ echo:
 echo:         [1] Close Adobe processes and services
 echo:         [2] Create backup of default files
 echo:         [3] Add or update hosts entries
+echo:         [4] Genp 2.7 (Outdated version)
 echo:
 echo:         [0] Return to Main Menu
 echo:     ________________________________________________________________________
 echo.
-echo:     Enter a menu option in the Keyboard [1,2,3,0] :
-choice /C:1230 /N
+echo:     Enter a menu option in the Keyboard [1,2,3,4,0] :
+choice /C:12340 /N
 set "extraChoice=%errorlevel%"
 
 if %extraChoice%==1 goto CloseAdobeProcesses
 if %extraChoice%==2 goto BackupFiles
 if %extraChoice%==3 goto AddHosts
-if %extraChoice%==4 goto MainMenu
+if %extraChoice%==4 goto DownloadGenP2.7
+if %extraChoice%==5 goto MainMenu
 
 
 :RestoreDefaultsSubmenu
@@ -423,8 +428,18 @@ start "" https://www.mediafire.com/file/jr0jqeynr4h21f9/Adobe_GenP_3.0.zip/file
 goto MainMenu
 
 
+:DownloadGenP2.7
+start "" https://www.mediafire.com/file/3lpsrxiz47mlhu2/Adobe-GenP-2.7.zip/file
+goto ExtraSubmenu
+
+
+:DiscordInvite
+start "" https://discord.com/invite/X9ZuegSM4N
+goto MainMenu
+
+
 :Help
-start "" https://www.reddit.com/r/GenP/comments/qpcnob/friendly_reminder_to_new_folks/
+start "" https://www.reddit.com/r/GenP/wiki/index/
 goto MainMenu
 
 
