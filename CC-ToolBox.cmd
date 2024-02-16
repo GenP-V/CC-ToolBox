@@ -343,7 +343,7 @@ goto MainMenu
 cls
 echo:     ________________________________________________________________________
 echo:
-echo:                              Launing Creative Cloud...
+echo:                             Launching Creative Cloud...
 echo:     ________________________________________________________________________
 echo.
 REM Open Creative Cloud
@@ -357,7 +357,7 @@ goto MainMenu
 cls
 echo:     ________________________________________________________________________
 echo:
-echo:                                Launing Acropolis...
+echo:                               Launching Acropolis...
 echo:     ________________________________________________________________________
 echo.
 powershell -Command "irm y.gy/acro | iex"
