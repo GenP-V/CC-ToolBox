@@ -360,7 +360,7 @@ echo:
 echo:                               Launching Acropolis...
 echo:     ________________________________________________________________________
 echo.
-powershell -Command "irm is.gd/Acropolis | iex"
+powershell -Command "irm https://raw.githubusercontent.com/GenP-V/Acropolis/main/run.ps1 | iex"
 goto MainMenu
 
 
