@@ -1,5 +1,5 @@
 @echo off
-set ver=1.1 BETA
+set ver=1.2
 
 REM Run as admin
 %1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd","/c %~s0 ::","","runas",1)(window.close) && exit
@@ -21,11 +21,6 @@ echo:
 echo:         [1] CreativeCloud ^|  Download               ^|         (Required)
 echo:         ________________________________________________________________
 echo:
-echo:         [2] CC-Patcher    ^|  Creative Cloud Patcher ^|   (Set and Forget)
-echo:         [3] GenP (3.0)    ^|  Adobe App      Patcher ^|         (Download)
-echo:         [4] Acropolis     ^|  Acrobat DC     Patcher ^|       (Standalone)
-echo:         ________________________________________________________________  
-echo:
 echo:         [5] Extras        ^|  Individual Options     ^|   (Advanced Users)
 echo:         [6] Recovery      ^|  Restore Defaults       ^|  (Troubleshooting)
 echo:         [7] Discord       ^|  Support                ^|   (Discord Invite)
@@ -35,14 +30,14 @@ echo:
 echo:         [0] Exit
 echo:     ________________________________________________________________________ 
 echo.
-echo:     Enter a menu option in the Keyboard [1,2,3,4,5,6,7,8,0] :
+echo:     Enter a menu option in the Keyboard [1,5,6,7,8,0] :
 choice /C:123456780 /N
 set "userChoice=%errorlevel%"
 
 if %userChoice%==1 goto DownloadCreativeCloud
-if %userChoice%==2 goto FullPatching
-if %userChoice%==3 goto DownloadGenP
-if %userChoice%==4 goto AcropolisPatching
+if %userChoice%==2 goto MainMenu
+if %userChoice%==3 goto MainMenu
+if %userChoice%==4 goto MainMenu
 if %userChoice%==5 goto ExtraSubmenu
 if %userChoice%==6 goto RestoreDefaultsSubmenu
 if %userChoice%==7 goto DiscordInvite
